@@ -7,8 +7,8 @@ class Profile(models.Model):
   bio=models.CharField(max_length=1000, default='DEFAULT VALUE')
   username=models.ForeignKey(User, on_delete=models.CASCADE)
 
-# class Image(models.Model):
-#   image=models.ImageField(upload_to='post/', blank=True)
-#   image_name=models.CharField(max_length=100)
-#   likes = 
-#   comment = models.CharField(max_length=255)
+class Image(models.Model):
+  image=models.ImageField(upload_to='post/', blank=True)
+  image_name=models.CharField(max_length=100)
+  likes = models.IntegerField()
+  comment = models.CharField(max_length=255)
