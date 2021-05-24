@@ -1,41 +1,47 @@
-{%extends "registration/base.html"%}
-{% load bootstrap5 %}
-{% block content %}
-<div class="container">
-  <div class="row">
-    <!-- Empty div -->
-    <div class="col-md-4"></div>
-    <div class="col-md-4">
-      {% if form.errors %}
-        <p> Password or Username is incorrect </p>
-      {% endif %}
-      <div class="panel panel-default">
+{% load static%}
+<!DOCTYPE html>
+<html lang="en">
 
-        <div class="panel-heading">
-          <h3 class="text-center">Sign In</h3>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="https://kit.fontawesome.com/fc1e235b2e.js"></script>
+  <link rel="stylesheet" href="{% static 'css/login.css' %}">
+  <title>Instagram Login Form</title>
+</head>
+
+<body>
+
+  <div id="wrapper">
+    <div class="container">
+      <div class="phone-app-demo"></div>
+      <div class="form-data">
+        <form action="" method="POST">
+          {% csrf_token %}
+          <div class="logo">
+            <img src="{% static 'img/logo.png' %}" alt="logo">
+          </div>
+          <input type="text" name="username" placeholder="Username">
+          <input type="password" name="password" placeholder="Password">
+          <button class="form-btn" type="submit" value='Login'>Log in</button>
+        </form>
+        <div class="sign-up">
+          Don't have an account? <a href="{% url 'register'%}">Sign up</a>
         </div>
-        <div class="panel-body">
-
-          <form  action="/accounts/login/" method="post">
-            {% csrf_token %}
-            {% bootstrap_form form%}
-
-            <div class="form-group">
-              <input type="submit" class="btn btn-primary btn-sm" value="Login">
-            </div>
-
-            <input type="hidden" name="next" value="{% url 'home' %}">
-
-          </form>
-
+        <div class="get-the-app">
+          <span>Get the app.</span>
+          <div class="badges">
+            <img src="{% static 'img/app-store.png' %}" alt="app-store badge">
+            <img src="{% static 'img/google-play.png' %}" alt="google-play badge">
+          </div>
         </div>
-
       </div>
-
     </div>
-    <!-- empty div -->
-    <div class="col-md-4"></div>
-  </div>
-</div>
 
-{% endblock %}
+
+  </div>
+
+</body>
+
+</html>

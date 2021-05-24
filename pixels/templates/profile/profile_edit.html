@@ -1,0 +1,25 @@
+{%extends 'base.html'%}
+
+{% block content %}
+  <div class="container d-flex justify-content-center">
+    <img src="{{profile.profile_photo.url}}" class="rounded-circle" style="height: 120px; width: 120px;" alt="">
+  </div>
+  <div class="container d-flex justify-content-center">
+    <form action="" method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+      <div class="input-group mb-3">
+        <input type="file" class="form-control" id="inputGroupFile02">
+        <button class="input-group-text" for="inputGroupFile02">Upload</button>
+      </div>
+    </form>
+  </div>
+  <div class="container d-flex justify-content-center">
+    <form action="">
+      <div class="input-group mb-3">
+        <span class="input-group-text">Bio</span>
+        <textarea type="text" class="form-control" placeholder="Short Bio" name="bio" aria-describedby="basic-addon1"></textarea>
+        <button class="input-group-text" for="inputGroupFile02">Submit</button>
+      </div>
+    </form>
+  </div>
+{% endblock  %}
