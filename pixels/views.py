@@ -46,7 +46,7 @@ def logoutUser(request):
     logout(request)
     return redirect('login')
 
-@login_required
+
 def home(request):
   return render(request, 'pixels/home.html')
 
@@ -64,11 +64,11 @@ def accountSettings(request):
 	return render(request, 'profile/account_settings.html', context)
 
 @login_required(login_url='login')
-def userPage(request):
-    images = Image.objects.all()
-    print(images)
-    profile = request.user.profile
-    context = {'profile':profile , 'images':images}
+def userPage(request, user_id):
+    profile = Profile.objects.get(user=user_id)
+    posts = profile.user.image_set.all()
+    total_post = posts.count()
+    context = {'profile':profile , 'posts':posts, 'total_post':total_post}
     return render(request, 'profile/profile.html', context)
 
 def profile(request, profile_id):
