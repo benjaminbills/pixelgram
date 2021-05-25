@@ -28,17 +28,15 @@ def loginPage(request):
 
 @unauthenticated_user
 def registerPage(request):
-    
     form = CreateUserForm
     if request.method == 'POST':
         form = CreateUserForm(request.POST)
         if form.is_valid():
             user = form.save()
             username = form.cleaned_data.get('username')
-            # Customer.objects.create(
-            #     user=user,
-            #     name=user.username,
-            # )
+            Profile.objects.create(
+                user=user,
+            )
             messages.success(request, 'Account was creates for ' + username )
             return redirect('login')
     context = {'form':form}
@@ -48,7 +46,7 @@ def logoutUser(request):
     logout(request)
     return redirect('login')
 
-
+@login_required
 def home(request):
   return render(request, 'pixels/home.html')
 
