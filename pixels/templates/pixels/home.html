@@ -1,5 +1,130 @@
-{%extends 'base.html'%}
-
+{%extends 'base.html'%} 
 {% block content %}
-<h1>Welcome</h1>
+<div>
+  <main>
+    <div class="container mt-5">
+      <div class="row" style="position: relative">
+        <!-- Empty div -->
+        <div class="empty col-md-1"></div>
+        <div class="margs timeline gallery col-md-7">
+          {% for image in images %}
+          <div class="size card mb-5">
+            <div class="profile_user mb-3">
+              <a
+                href="/profile/{{image.user.username}}"
+                style="text-decoration: none"
+              >
+                <img
+                  class="rounded-circle"
+                  style="width: 3em; height: 3em"
+                  src="{{image.user.profile.profile_photo.url}}"
+                  alt="{{image.user.username}}"
+                />
+                <span class="prof"><strong>{{image.user}}</strong></span>
+              </a>
+            </div>
+            <div class="" tabindex="0">
+              <a href="/post/{{image.id}}"
+                ><img src="{{image.image.url}}" class="gallery-image" alt=""
+              /></a>
+
+              <div class="post-details">
+                <div class="row interactions">
+                  <div class="col-1 one">
+                    <form action="">
+                      {% csrf_token %}
+                      <button
+                        type="submit"
+                        name="image_id"
+                        value="{{image.id}}"
+                        style="
+                          border: 0px;
+                          background-color: transparent;
+                          margin-bottom: 1rem;
+                        "
+                      >
+                        <i class="far fa-heart"></i>
+                      </button>
+                    </form>
+                  </div>
+                  <div class="col-1">
+                    <form action="">
+                      {% csrf_token %}
+                      <button
+                        type="submit"
+                        name="image_id"
+                        value="{{image.id}}"
+                        style="
+                          border: 0px;
+                          background-color: transparent;
+                          margin-bottom: 1rem;
+                        "
+                      >
+                        <i class="far fa-comment"></i>
+                      </button>
+                    </form>
+                  </div>
+                </div>
+                <p class="likes">{{image.likes.count}} likes</p>
+                <div class="caption">
+                  <p>{{image.caption}}</p>
+                </div>
+                <div class="comment">
+                  {% for comment in comments %} 
+                    {% if comment.image.id == image.id %}
+                      <div>
+                        <a
+                          href=""
+                          class=""
+                          style="
+                            font-size: 0.8rem;
+                            color: black;
+                            padding-left: 20px;
+                            text-decoration: none;
+                          "
+                          ><strong>{{comment.user}}</strong></a
+                        >
+                        <span class="" style="font-size: 0.8rem"
+                          >{{comment.comment}}</span
+                        >
+                      </div>
+                    {% endif %} 
+                  {% endfor %}
+                </div>
+                <div class="comment-section">
+                  <form
+                    role="add_comment"
+                    action=""
+                  >
+                    {% csrf_token%}
+                    <div class="input-group">
+                      <input
+                        type="text"
+                        class="form-control"
+                        placeholder="Add a comment..."
+                        name="comments"
+                        style="font-size: 1rem; border: 0"
+                      />
+                      <div class="input-group-btn">
+                        <button
+                          class="btn"
+                          type="submit"
+                          style="font-size: 1rem; color: rgb(178, 223, 252)"
+                        >
+                          Post
+                        </button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+        <div class="empty col-md-1"></div>
+      </div>
+    </div>
+  </main>
+</div>
 {% endblock %}
