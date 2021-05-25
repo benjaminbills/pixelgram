@@ -2,7 +2,7 @@ from pixels.models import Profile
 from django.shortcuts import render, redirect, get_object_or_404
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.decorators import login_required
-from .forms import UpdateProfileForm
+from .forms import ProfileForm
 from .decorators import unauthenticated_user
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
@@ -50,13 +50,20 @@ def logoutUser(request):
 def home(request):
   return render(request, 'pixels/home.html')
 
+@login_required(login_url='login')
+def accountSettings(request):
+	profile = request.user.profile
+	form = ProfileForm(instance=profile)
+	if request.method == 'POST':
+		form = ProfileForm(request.POST, request.FILES,instance=profile)
+		if form.is_valid():
+			form.save()
+
+
+	context = {'form':form}
+	return render(request, 'profile/account_settings.html', context)
+
 def profile(request, profile_id):
   profile = get_object_or_404(Profile, pk=profile_id)
   return render(request, 'profile/profile.html', {'profile':profile})
-
-def profile_edit(request, profile_id):
-  profile = get_object_or_404(Profile, pk=profile_id)
-  form = UpdateProfileForm()
-  print(form)
-  return render(request, 'profile/profile_edit.html', {'profile':profile, 'form':form})
 

@@ -1,15 +1,15 @@
-from django import forms
+from django.forms import ModelForm
 from .models import Profile
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 
 
 
-class UpdateProfileForm(forms.Form):
+class ProfileForm(ModelForm):
     class Meta:
         model = Profile
         field = '__all__'
-        exclude = ['username']
+        exclude = ['user']
     
 class CreateUserForm(UserCreationForm):
 	class Meta:
