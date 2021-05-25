@@ -11,4 +11,11 @@ class Image(models.Model):
   image=models.ImageField(upload_to='post/', blank=True)
   image_name=models.CharField(max_length=100)
   likes = models.IntegerField()
-  comment = models.CharField(max_length=255)
+  image_caption = models.CharField( max_length=100)
+  comments = models.CharField(max_length=255)
+
+class Comment(models.Model):
+    comment = models.TextField(max_length=2200)
+    user = models.ForeignKey(User, related_name='commented_by', on_delete=models.CASCADE)
+    image = models.ForeignKey(Image, related_name='comment_for', on_delete=models.CASCADE)
+    pub_date=models.DateField(auto_now_add=True)

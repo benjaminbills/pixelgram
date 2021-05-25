@@ -8,8 +8,8 @@
         <img src="{{profile.profile_photo.url}}" style="height: 120px; width: 120px;" alt="">
       </div>
       <div class="profile-user-settings">
-        <h1 class="profile-user-name">{{profile.username}}</h1>
-        <button class="btn profile-edit-btn"> <a href="{% url 'profile_edit' profile.id%}">Edit Profile</a></button>
+        <h1 class="profile-user-name">{{profile.user.username}}</h1>
+        <button class="btn profile-edit-btn"> <a href="{% url 'account' %}">Edit Profile</a></button>
         <button class="btn profile-settings-btn" aria-label="profile settings"><i class="fas fa-cog" aria-hidden="true"></i></button>
       </div>
       <div class="profile-stats">

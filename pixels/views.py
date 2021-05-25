@@ -1,18 +1,18 @@
-from pixels.models import Profile
+from pixels.models import Image, Profile
 from django.shortcuts import render, redirect, get_object_or_404
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.decorators import login_required
 from .forms import ProfileForm
+from django.forms import inlineformset_factory
 from .decorators import unauthenticated_user
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
-from .forms import  CreateUserForm
+from .forms import  CreateUserForm, NewPostForm
 
 
 
 @unauthenticated_user
 def loginPage(request):
-    
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
@@ -63,7 +63,28 @@ def accountSettings(request):
 	context = {'form':form}
 	return render(request, 'profile/account_settings.html', context)
 
+@login_required(login_url='login')
+def userPage(request):
+    profile = request.user.profile
+    context = {'profile':profile }
+    return render(request, 'profile/profile.html', context)
+
 def profile(request, profile_id):
   profile = get_object_or_404(Profile, pk=profile_id)
   return render(request, 'profile/profile.html', {'profile':profile})
 
+@login_required(login_url='login')
+def createPost(request, pk):
+    current_user = request.user
+    if request.method == 'POST':
+        form = NewPostForm(request.POST, request.FILES)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.user = current_user
+            post.save()
+        return redirect('index')
+
+    else:
+        form = NewPostForm()
+        context = {'form':form}
+    return render(request, 'post/post.html', context)

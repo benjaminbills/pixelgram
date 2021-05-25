@@ -1,0 +1,27 @@
+{%  extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+
+<div class="row">
+	<div class="col-md-6">
+		<div class="card card-body">
+
+			<form action="" method="POST">
+				{% csrf_token %}
+				{{form.image.label}}
+				{{form.image}}
+				{{form.image_name.label}}
+				{{form.image_name}}
+        {{form.image_name.label}}
+				{{form.image_name}}
+				
+				<input type="submit" name="Submit">
+			</form>
+
+		</div>
+	</div>
+</div>
+
+
+{% endblock %}
