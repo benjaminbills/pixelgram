@@ -3,7 +3,6 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.decorators import login_required
 from .forms import ProfileForm
-from django.forms import inlineformset_factory
 from .decorators import unauthenticated_user
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
