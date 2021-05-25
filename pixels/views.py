@@ -1,4 +1,4 @@
-from pixels.models import Image, Profile
+from pixels.models import Comment, Image, Profile
 from django.shortcuts import render, redirect, get_object_or_404
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.decorators import login_required
@@ -49,7 +49,8 @@ def logoutUser(request):
 
 def home(request):
     images = Image.objects.all()
-    context = {'images':images}
+    comments = Comment.objects.all()
+    context = {'images':images, 'comments':comments}
     return render(request, 'pixels/home.html', context)
 
 @login_required(login_url='login')
@@ -92,3 +93,16 @@ def createPost(request):
         form = NewPostForm()
     context = {'form':form}
     return render(request, 'post/post.html', context)
+
+@login_required(login_url='login')
+def addComment(request,image_id):
+    '''
+    Method to add post comments
+    '''
+    image=Image.objects.get(pk=image_id)
+    comments=request.GET.get("comments")
+    current_user=request.user
+    comment=Comment(image=image,comment=comments,user=current_user)
+    comment.save()
+
+    return redirect('home')

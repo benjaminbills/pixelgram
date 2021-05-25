@@ -11,4 +11,5 @@ urlpatterns=[
     path('user/<int:user_id>', views.userPage, name='user_page'),
     path('account/', views.accountSettings, name='account'),
     path('create_post/', views.createPost, name='create_post'),
+    path('add_comment/<int:image_id>', views.addComment, name='add_comment'),
 ]

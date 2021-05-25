@@ -94,7 +94,7 @@
                 <div class="comment-section">
                   <form
                     role="add_comment"
-                    action=""
+                    action="{% url 'add_comment' image.id%}"
                   >
                     {% csrf_token%}
                     <div class="input-group">
