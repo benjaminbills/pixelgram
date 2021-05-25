@@ -10,6 +10,6 @@ urlpatterns=[
     path('',views.home,name = 'home'),
     path('user/', views.userPage, name='user_page'),
     path('account/', views.accountSettings, name='account'),
-    path('create_post/<str:pk>', views.createPost, name='create_post'),
+    path('create_post/', views.createPost, name='create_post'),
     path('profile/<int:profile_id>', views.profile, name='profile'),
 ]

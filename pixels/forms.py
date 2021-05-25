@@ -19,4 +19,4 @@ class CreateUserForm(UserCreationForm):
 class NewPostForm(ModelForm):
     class Meta:
         model = Image
-        exclude = ['likes', 'profile', 'user', 'post_date', 'comment']
+        exclude = ['likes', 'profile', 'user', 'post_date', 'comments']

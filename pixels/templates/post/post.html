@@ -7,16 +7,11 @@
 	<div class="col-md-6">
 		<div class="card card-body">
 
-			<form action="" method="POST">
+			<form action="{% url 'create_post' %}" method="POST" enctype="multipart/form-data">
 				{% csrf_token %}
-				{{form.image.label}}
-				{{form.image}}
-				{{form.image_name.label}}
-				{{form.image_name}}
-        {{form.image_name.label}}
-				{{form.image_name}}
+				{{form}}
 				
-				<input type="submit" name="Submit">
+				<input type="submit" value='Post' name="Submit">
 			</form>
 
 		</div>

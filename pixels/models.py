@@ -10,9 +10,10 @@ class Profile(models.Model):
 class Image(models.Model):
   image=models.ImageField(upload_to='post/', blank=True)
   image_name=models.CharField(max_length=100)
-  likes = models.IntegerField()
-  image_caption = models.CharField( max_length=100)
-  comments = models.CharField(max_length=255)
+  user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+  likes = models.IntegerField(default=0)
+  image_caption = models.CharField( max_length=100, default='Default')
+  comments = models.CharField(max_length=255, default='Default')
 
 class Comment(models.Model):
     comment = models.TextField(max_length=2200)

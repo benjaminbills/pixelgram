@@ -65,8 +65,10 @@ def accountSettings(request):
 
 @login_required(login_url='login')
 def userPage(request):
+    images = Image.objects.all()
+    print(images)
     profile = request.user.profile
-    context = {'profile':profile }
+    context = {'profile':profile , 'images':images}
     return render(request, 'profile/profile.html', context)
 
 def profile(request, profile_id):
@@ -74,7 +76,7 @@ def profile(request, profile_id):
   return render(request, 'profile/profile.html', {'profile':profile})
 
 @login_required(login_url='login')
-def createPost(request, pk):
+def createPost(request):
     current_user = request.user
     if request.method == 'POST':
         form = NewPostForm(request.POST, request.FILES)
@@ -82,9 +84,9 @@ def createPost(request, pk):
             post = form.save(commit=False)
             post.user = current_user
             post.save()
-        return redirect('index')
+        return redirect('home')
 
     else:
         form = NewPostForm()
-        context = {'form':form}
+    context = {'form':form}
     return render(request, 'post/post.html', context)
