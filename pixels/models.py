@@ -20,16 +20,21 @@ class Image(models.Model):
   image_name=models.CharField(max_length=100)
   user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
   image_caption = models.CharField( max_length=100, default='Default')
-  comments = models.CharField(max_length=255, default='Default')
   likes = models.ManyToManyField(User, related_name='likes', blank=True,)
+
   def total_likes(self):
     return self.likes.count()
-  
+
+  def save_image(self):
+        self.save()
+
+  def delete_image(self):
+        self.delete()
+
   @classmethod
-  def update_image(cls,image_id):
-      image=cls.objects.filter(pk=image_id)
-      image.update()
-      return image
+  def update_image(cls, id, image_name, image):
+        image = cls.objects.filter(pk=id).update(image_name=image_name,image=image)
+        return image
 class Comment(models.Model):
     comment = models.TextField(max_length=2200)
     user = models.ForeignKey(User, related_name='commented_by', on_delete=models.CASCADE)
