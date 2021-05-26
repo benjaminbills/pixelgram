@@ -76,9 +76,10 @@ def accountSettings(request):
 @login_required(login_url='login')
 def userPage(request, user_id):
     profile = Profile.objects.get(user=user_id)
+    images = Image.objects.filter(user=user_id)
     posts = profile.user.image_set.all()
     total_post = posts.count()
-    context = {'profile':profile , 'posts':posts, 'total_post':total_post}
+    context = {'profile':profile , 'posts':images, 'total_post':total_post}
     return render(request, 'profile/profile.html', context)
 
 def profile(request, profile_id):
