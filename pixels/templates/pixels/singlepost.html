@@ -18,7 +18,7 @@
                 </li>
                 <li class="gallery-item-comments">
                   <span class="visually-hidden">Comments:</span
-                  ><i class="fas fa-comment" aria-hidden="true"></i> {{ image.comments|length }}
+                  ><i class="fas fa-comment" aria-hidden="true"></i> {{ comments_count}}
                 </li>
               </ul>
             </div>
@@ -30,7 +30,7 @@
           </div>
           <div class="comment">
             {% for comment in comments %} 
-              {% if comment.image.id == image.id %}
+             
                 <div>
                   <a
                     href=""
@@ -43,11 +43,11 @@
                     "
                     ><strong>{{comment.user}}</strong></a
                   >
-                  <span class="" style="font-size: 0.8rem"
+                  <span class="" style="font-size: 1.2rem"
                     >{{comment.comment}}</span
                   >
                 </div>
-              {% endif %} 
+              
             {% endfor %}
           </div>
           <div class="comment-section">
@@ -66,7 +66,7 @@
                 />
                 <div class="input-group-btn">
                   <button
-                    class="btn"
+                    class="btn btn-success"
                     type="submit"
                     style="font-size: 2rem; color: rgb(178, 223, 252)"
                   >

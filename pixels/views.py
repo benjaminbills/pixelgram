@@ -54,7 +54,10 @@ def home(request):
 
 def getSinglePost(request, image_id):
     image = Image.objects.get(pk=image_id)
-    context = {'image':image}
+    comments = Comment.objects.filter(image=image_id)
+    comments_count = comments.count()
+    print(comments)
+    context = {'image':image, "comments":comments, 'comments_count':comments_count}
     return render(request, 'pixels/singlepost.html', context)
 
 @login_required(login_url='login')
