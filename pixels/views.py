@@ -81,12 +81,8 @@ def userPage(request, user_id):
     images = Image.objects.filter(user=user_id)
     posts = profile.user.image_set.all()
     total_post = posts.count()
-    context = {'profile':profile , 'posts':images, 'total_post':total_post}
+    context = {'profile':profile , 'images':images, 'total_post':total_post}
     return render(request, 'profile/profile.html', context)
-
-def profile(request, profile_id):
-  profile = get_object_or_404(Profile, pk=profile_id)
-  return render(request, 'profile/profile.html', {'profile':profile})
 
 @login_required(login_url='login')
 def createPost(request):
