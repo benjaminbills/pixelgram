@@ -35,11 +35,14 @@
     <div class="gallery">
       {% for post in images %}
       <div class="gallery-item" tabindex="0">
-        <img src="{{post.image.url}}" class="gallery-image" alt="">
+        <a href="/post/{{post.id}}">
+          <img src="{{post.image.url}}" class="gallery-image" alt="">
+        </a>
         <div class="gallery-item-info">
           <ul>
+            <a href="/post/{{post.id}}">
             <li class="gallery-item-likes"><span class="visually-hidden">Likes:</span><i class="fas fa-heart" aria-hidden="true"></i>{{post.likes.count}}</li>
-            <p>{{post.likes}}</p>
+            </a>
           </ul>
         </div>
       </div>
