@@ -16,7 +16,6 @@ def loginPage(request):
         username = request.POST.get('username')
         password = request.POST.get('password')
         user = authenticate(request, username=username, password=password)
-
         if user is not None:
             login(request, user)
             return redirect('home')
@@ -49,8 +48,14 @@ def logoutUser(request):
 def home(request):
     images = Image.objects.all()
     comments = Comment.objects.all()
-    context = {'images':images, 'comments':comments}
+
+    context = {'images':images, 'comments':comments,}
     return render(request, 'pixels/home.html', context)
+
+def getSinglePost(request, image_id):
+    image = Image.objects.get(pk=image_id)
+    context = {'image':image}
+    return render(request, 'pixels/singlepost.html', context)
 
 @login_required(login_url='login')
 def accountSettings(request):
@@ -104,4 +109,15 @@ def addComment(request,image_id):
     comment=Comment(image=image,comment=comments,user=current_user)
     comment.save()
 
+    return redirect('home')
+
+@login_required(login_url='login')
+def like(request, image_id):
+    image=Image.objects.get(pk=image_id)
+    # print(image)
+    current_user=request.user
+    if image.likes.filter(id=current_user.id):
+        image.likes.remove(current_user.id)
+    else:
+        image.likes.add(current_user.id)
     return redirect('home')

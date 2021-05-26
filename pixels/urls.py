@@ -12,4 +12,6 @@ urlpatterns=[
     path('account/', views.accountSettings, name='account'),
     path('create_post/', views.createPost, name='create_post'),
     path('add_comment/<int:image_id>', views.addComment, name='add_comment'),
+    path('like/<int:image_id>', views.like, name='like'),
+    path('post/<int:image_id>', views.getSinglePost, name='get_singlepost'),
 ]
