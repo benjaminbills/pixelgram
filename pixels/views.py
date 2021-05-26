@@ -36,7 +36,7 @@ def registerPage(request):
             Profile.objects.create(
                 user=user,
             )
-            send_welcome_email(user.name,user.email)
+            send_welcome_email(user.username,user.email)
             messages.success(request, 'Account was creates for ' + username )
             return redirect('login')
     context = {'form':form}
