@@ -16,7 +16,7 @@
     <a class="fas fa-sign-out-alt" href="{% url 'logout'%}"></a>
 
     {% else %}
-    <a class="far fa-user" href="#"></a>
+    <a class="far fa-user" href="{% url 'login' %}"></a>
     {% endif %}
   </section>
 </nav>
