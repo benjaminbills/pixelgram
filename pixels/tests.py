@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from django.test import TestCase
-from .models import Profile, Image
+from .models import Comment, Profile, Image
 # Create your tests here.
 
 class ProfileTestClass(TestCase):
@@ -66,3 +66,35 @@ class ImageTestClass(TestCase):
       self.assertEqual(update_name.image_name,'good') 
       self.assertEqual(update_image.image,'http:image2') 
 
+class CommentTestClass(TestCase):
+  def setUp(self):
+      self.user = User(username='Benjamin', email='ben@gmail.com', password='Bananna')
+      self.user.save()
+      self.image = Image(image='http:cloudinary/PixelGram/profile/ben.jpg', image_name='peace', user=self.user, image_caption='wake up')
+      self.image.save()
+      self.comment = Comment(comment = 'Amazing!!', user = self.user, image = self.image)
+      # Testing  instance
+  def test_instance(self):
+      self.assertTrue(isinstance(self.comment,Comment))
+
+  def test_save_method(self):
+      self.comment.save_comment()     
+      comment = Comment.objects.all()
+      self.assertTrue(len(comment) > 0) 
+
+  def tearDown(self):
+      Comment.objects.all().delete()
+  def delete_comment(self):
+      self.comment.save_comment()
+      comment=Comment.objects.all()
+      self.assertEqual(len(comment), 1) 
+      self.comment.delete_comment()
+      del_comment=Comment.objects.all()
+      self.assertEqual(len(del_comment),0)
+  
+  def test_update_comment(self):
+      self.comment.save_comment()
+      self.comment.update_comment(self.comment.id, comment='good job')
+      update_comment=Comment.objects.get(comment='good job')
+      
+      self.assertEqual(update_comment.comment,'good job')  

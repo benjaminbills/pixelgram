@@ -40,3 +40,14 @@ class Comment(models.Model):
     user = models.ForeignKey(User, related_name='commented_by', on_delete=models.CASCADE)
     image = models.ForeignKey(Image, related_name='comment_for', on_delete=models.CASCADE)
     pub_date=models.DateField(auto_now_add=True)
+
+    def save_comment(self):
+          self.save()
+
+    def delete_comment(self):
+          self.delete()
+
+    @classmethod
+    def update_comment(cls, id, comment):
+          comment = cls.objects.filter(pk=id).update(comment=comment)
+          return comment
