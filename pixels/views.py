@@ -7,6 +7,7 @@ from .decorators import unauthenticated_user
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from .forms import  CreateUserForm, NewPostForm
+from .email import send_welcome_email
 
 
 
@@ -35,6 +36,7 @@ def registerPage(request):
             Profile.objects.create(
                 user=user,
             )
+            send_welcome_email(user.name,user.email)
             messages.success(request, 'Account was creates for ' + username )
             return redirect('login')
     context = {'form':form}
