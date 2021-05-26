@@ -1,0 +1,4 @@
+Hello {{name}}
+
+Welcome To PixelGram. 
+Share your photos with your friends
