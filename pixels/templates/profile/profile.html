@@ -9,8 +9,10 @@
       </div>
       <div class="profile-user-settings">
         <h1 class="profile-user-name">{{profile.user.username}}</h1>
+        {% if request.user == profile.user  %}
         <button class="btn profile-edit-btn"> <a href="{% url 'account' %}">Edit Profile</a></button>
-        <button class="btn profile-settings-btn" aria-label="profile settings"><i class="fas fa-cog" aria-hidden="true"></i></button>
+        {% endif %}
+        
       </div>
       <div class="profile-stats">
         <ul>
@@ -44,10 +46,10 @@
       </div>
       {% endfor %}
     </div>
-    <!-- End of gallery -->
-    <div class="loader"></div>
+    
+    
   </div>
-  <!-- End of container -->
+  
 </main>
 
 

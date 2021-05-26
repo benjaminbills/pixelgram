@@ -11,7 +11,7 @@
           <div class="size card mb-5">
             <div class="profile_user mb-3">
               <a
-                href="/profile/{{image.user.username}}"
+                href="{% url 'user_page' image.user.id %}"
                 style="text-decoration: none"
               >
                 <img
